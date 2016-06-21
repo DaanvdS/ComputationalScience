@@ -5,8 +5,7 @@ load('ljdata(1).mat');
 N = 100;                                                         %number of data points
 subplot(2,2,1);
 errorbar(r,potr,noisepotr, 'o');
-%Hoi 
-%test
+
 %% Task 1 A: fit the LJ potential
 %Matrixalgebra om vector a te bepalen, via matrix B en vector s
 s = potr./noisepotr;
@@ -120,11 +119,11 @@ tstart=0;   tfinish=1e-14; y1start=r_equi; y2start=1;
     tspan  = linspace(tstart,tfinish,N);
     ystart = [y1start y2start];
     [t,y]  = ode45(@(t,y)hydrogenODE_V(t,y,m_eff,eps,sigm),tspan,ystart);   
-x_V = y(:,1);
+x_LJ = y(:,1);
 v_V = y(:,2);
 figure;
 a=subplot(2,2,1);
-plot(t,x_V);  xlabel('t');    ylabel('x_V'); grid on;
+plot(t,x_LJ);  xlabel('t');    ylabel('x_V'); grid on;
 subplot(2,2,2);
 plot(t,v_V);  xlabel('t');    ylabel('v_V'); grid on;
     clear y t
@@ -146,3 +145,5 @@ h = title('Oscillaties bij V(r) en P(r)');
 set(gca,'Visible','off');
 set(h,'Visible','on');
 %% Task 2B
+%calculate speed dXdt
+dxdt_V
