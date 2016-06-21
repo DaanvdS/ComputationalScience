@@ -120,12 +120,12 @@ tstart=0;   tfinish=1e-14; y1start=r_equi; y2start=1;
     ystart = [y1start y2start];
     [t,y]  = ode45(@(t,y)hydrogenODE_V(t,y,m_eff,eps,sigm),tspan,ystart);   
 x_LJ = y(:,1);
-v_V = y(:,2);
+v_LJ = y(:,2);
 figure;
 a=subplot(2,2,1);
-plot(t,x_LJ);  xlabel('t');    ylabel('x_V'); grid on;
+plot(t,x_LJ);  xlabel('t');    ylabel('x_L_J'); grid on;
 subplot(2,2,2);
-plot(t,v_V);  xlabel('t');    ylabel('v_V'); grid on;
+plot(t,v_LJ);  xlabel('t');    ylabel('v_L_J'); grid on;
     clear y t
     
     %solve ODE (ordinary differential equations)
@@ -145,5 +145,10 @@ h = title('Oscillaties bij V(r) en P(r)');
 set(gca,'Visible','off');
 set(h,'Visible','on');
 %% Task 2B
-%calculate speed dXdt
-dxdt_V
+%calculate speed dXdt using 2 point diff for both LJ and P
+dt=t(2)-t(1);
+dxdt_LJ_twop(:,1)= (x_LJ(3:end)-x_LJ(1:end-2))./(2*dt);
+dxdt_LJ_twop(499:500,1)=NaN;
+subplot(2,2,2);
+hold on
+plot(t,dxdt_LJ_twop,'--');
