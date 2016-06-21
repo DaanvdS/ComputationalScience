@@ -5,7 +5,8 @@ load('ljdata(1).mat');
 N = 100;                                                         %number of data points
 subplot(2,2,1);
 errorbar(r,potr,noisepotr, 'o');
-%Hoi
+%Hoi 
+%test
 %% Task 1 A: fit the LJ potential
 %Matrixalgebra om vector a te bepalen, via matrix B en vector s
 s = potr./noisepotr;
