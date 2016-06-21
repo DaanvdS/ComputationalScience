@@ -115,6 +115,7 @@ m_eff = m1*m2/(m1+m2);
 N     = 500;
 tstart=0;   tfinish=1e-14; y1start=r_equi; y2start=1;
 
+<<<<<<< HEAD
 %solve ODE (ordinary differential equations)
 tspan  = linspace(tstart,tfinish,N);
 ystart = [y1start y2start];
@@ -140,6 +141,31 @@ subplot(2,2,3);
 plot(t,x_P); xlabel('t'); ylabel('x_P'); grid on;
 subplot(2,2,4);
 plot(t,v_P); xlabel('t'); ylabel('v_P'); grid on;
+=======
+    %solve ODE (ordinary differential equations)
+    tspan  = linspace(tstart,tfinish,N);
+    ystart = [y1start y2start];
+    [t,y]  = ode45(@(t,y)hydrogenODE_V(t,y,m_eff,eps,sigm),tspan,ystart);   
+x_LJ = y(:,1);
+v_LJ = y(:,2);
+figure;
+a=subplot(2,2,1);
+plot(t,x_LJ);  xlabel('t');    ylabel('x_L_J'); grid on;
+subplot(2,2,2);
+plot(t,v_LJ);  xlabel('t');    ylabel('v_L_J'); grid on;
+    clear y t
+    
+    %solve ODE (ordinary differential equations)
+    tspan  = linspace(tstart,tfinish,N);
+    ystart = [y1start y2start];
+    [t,y]  = ode45(@(t,y)hydrogenODE_P(t,y,m_eff,ks,r_equi),tspan,ystart);   
+x_P = y(:,1);
+v_P = y(:,2);
+subplot(2,2,3);
+plot(t,x_P);  xlabel('t');    ylabel('x_P'); grid on;
+subplot(2,2,4);
+plot(t,v_P);  xlabel('t');    ylabel('v_P'); grid on;
+>>>>>>> origin/master
 
 set(gcf,'NextPlot','add');
 axes;
@@ -147,6 +173,7 @@ h = title('Oscillaties bij V(r) en P(r)');
 set(gca,'Visible','off');
 set(h,'Visible','on');
 %% Task 2B
+<<<<<<< HEAD
 
 
 
@@ -155,3 +182,12 @@ set(h,'Visible','on');
 %% Task 2C
 dt=t(2)-t(1)
 dxdt_LJ_f(:,1)=(x_LJ(2:end)-x_LJ(1:end-1))./(2*dt);
+=======
+%calculate speed dXdt using 2 point diff for both LJ and P
+dt=t(2)-t(1);
+dxdt_LJ_twop(:,1)= (x_LJ(3:end)-x_LJ(1:end-2))./(2*dt);
+dxdt_LJ_twop(499:500,1)=NaN;
+subplot(2,2,2);
+hold on
+plot(t,dxdt_LJ_twop,'--');
+>>>>>>> origin/master
