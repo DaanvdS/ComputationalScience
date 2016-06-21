@@ -115,29 +115,31 @@ m_eff = m1*m2/(m1+m2);
 N     = 500;
 tstart=0;   tfinish=1e-14; y1start=r_equi; y2start=1;
 
-    %solve ODE (ordinary differential equations)
-    tspan  = linspace(tstart,tfinish,N);
-    ystart = [y1start y2start];
-    [t,y]  = ode45(@(t,y)hydrogenODE_V(t,y,m_eff,eps,sigm),tspan,ystart);   
-x_V = y(:,1);
-v_V = y(:,2);
+%solve ODE (ordinary differential equations)
+tspan  = linspace(tstart,tfinish,N);
+ystart = [y1start y2start];
+[t,y]  = ode45(@(t,y)hydrogenODE_V(t,y,m_eff,eps,sigm),tspan,ystart);   
+x_V    = y(:,1);
+v_V    = y(:,2);
+
 figure;
-a=subplot(2,2,1);
-plot(t,x_V);  xlabel('t');    ylabel('x_V'); grid on;
+a      = subplot(2,2,1);
+plot(t,x_V); xlabel('t'); ylabel('x_V'); grid on;
 subplot(2,2,2);
-plot(t,v_V);  xlabel('t');    ylabel('v_V'); grid on;
-    clear y t
-    
-    %solve ODE (ordinary differential equations)
-    tspan  = linspace(tstart,tfinish,N);
-    ystart = [y1start y2start];
-    [t,y]  = ode45(@(t,y)hydrogenODE_P(t,y,m_eff,ks,r_equi),tspan,ystart);   
-x_P = y(:,1);
-v_P = y(:,2);
+plot(t,v_V); xlabel('t'); ylabel('v_V'); grid on;
+clear y t;
+
+%solve ODE (ordinary differential equations)
+tspan  = linspace(tstart,tfinish,N);
+ystart = [y1start y2start];
+[t,y]  = ode45(@(t,y)hydrogenODE_P(t,y,m_eff,ks,r_equi),tspan,ystart);   
+x_P    = y(:,1);
+v_P    = y(:,2);
+
 subplot(2,2,3);
-plot(t,x_P);  xlabel('t');    ylabel('x_P'); grid on;
+plot(t,x_P); xlabel('t'); ylabel('x_P'); grid on;
 subplot(2,2,4);
-plot(t,v_P);  xlabel('t');    ylabel('v_P'); grid on;
+plot(t,v_P); xlabel('t'); ylabel('v_P'); grid on;
 
 set(gcf,'NextPlot','add');
 axes;
@@ -145,3 +147,11 @@ h = title('Oscillaties bij V(r) en P(r)');
 set(gca,'Visible','off');
 set(h,'Visible','on');
 %% Task 2B
+
+
+
+
+
+%% Task 2C
+dt=t(2)-t(1)
+dxdt_LJ_f(:,1)=(x_LJ(2:end)-x_LJ(1:end-1))./(2*dt);
